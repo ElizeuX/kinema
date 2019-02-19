@@ -1,6 +1,6 @@
 # kinema
 
-<img align="left" src="resources/images/lt.png?raw=true" height="200" width="200"/>
+<img align="left" src="resources/images/kinema.png?raw=true" height="200" width="200"/>
 
 kinema is an movie manager. It can view, convert, edit and catalog movies 
 in various of the major movies formats. It can also talk to e-book reader 
