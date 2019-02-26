@@ -8,9 +8,8 @@ It can fetch metadata for your movies on the internet.
 
 It is multi-platform, running on Linux, Windows and MacOS.
 
-For more information, see the kinema.
+For more information, see the [Kinema About page](https://elizeux.github.io/kinema/)
 
-For more information, see the [calibre About page](https://calibre-ebook.com/about)
 
 [![Build Status](https://api.travis-ci.org/kovidgoyal/calibre.svg)](https://travis-ci.org/kovidgoyal/calibre)
 [![Build status](https://ci.appveyor.com/api/projects/status/v3nkfq0t3pse8lep?svg=true&passingText=windows%20OK&failingText=windows%20KO)](https://ci.appveyor.com/project/kovidgoyal/calibre)  
