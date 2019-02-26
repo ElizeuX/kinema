@@ -2,11 +2,13 @@
 
 <img align="left" src="resources/images/kinema.png?raw=true" height="200" width="200"/>
 
-kinema is an movie manager. It can view, convert, edit and catalog movies 
-in various of the major movies formats. It can also talk to e-book reader 
-devices. It can go out to the internet and fetch metadata for your books. 
-It can download newspapers and convert them into e-books for convenient 
-reading. It is cross platform, running on Linux, Windows and macOS.
+Kinema is a movie manager. You can view, convert and catalog movies in the main digital formats. 
+You can also make a copy of the digital movie available for viewing on mobile devices. 
+It can fetch metadata for your movies on the internet. 
+
+It is multi-platform, running on Linux, Windows and MacOS.
+
+For more information, see the kinema.
 
 For more information, see the [calibre About page](https://calibre-ebook.com/about)
 
