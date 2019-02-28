@@ -24,19 +24,18 @@ See the [User Manual](https://manual.calibre-ebook.com)
 
 ## Development
 
-[Setting up a development environment for calibre](https://manual.calibre-ebook.com/develop.html)
+[Setting up a development environment for kinema](https://elizeux.github.io/kinema/)
 
-A [tarball of the source code](https://calibre-ebook.com/dist/src) for the 
-current calibre release.
+A [tarball of the source code](https://elizeux.github.io/kinema/) for the 
+current kinema release.
 
 ## Bugs
 
-Bug reports and feature requests should be made in the calibre bug tracker at [launchpad](https://bugs.launchpad.net/calibre).
-GitHub is only used for code hosting and pull requests.
+Bug reports and feature requests in "The bugs on the tables" projects.
 
-## Support calibre
+## Support kinema
 
-calibre is a result of the efforts of many volunteers from all over the world.
+Kinema is a result of the efforts of many volunteers from all over the world.
 If you find it useful, please consider contributing to support its development.
-[Donate to support calibre development](https://calibre-ebook.com/donate).
+[Donate to support kinema development](https://elizeux.github.io/kinema/).
 
