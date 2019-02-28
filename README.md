@@ -31,7 +31,7 @@ current kinema release.
 
 ## Bugs
 
-Bug reports and feature requests in "The bugs on the tables" projects.
+Bug reports and feature requests in [The bugs on the tables"](https://github.com/ElizeuX/kinema/projects/3) projects.
 
 ## Support kinema
 
