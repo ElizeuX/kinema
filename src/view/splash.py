@@ -6,6 +6,7 @@ from gi.repository import Gtk
 from threading import Thread
 
 
+
 class Splash(Thread):
     def __init__(self):
         super(Splash, self).__init__()
@@ -19,7 +20,7 @@ class Splash(Thread):
         # Add box and label
         box = Gtk.Box()
         lbl = Gtk.Label()
-        lbl.set_label("My app is loading...")
+        lbl.set_label("Kinema is loading...")
         box.pack_start(lbl, True, True, 0)
         self.window.add(box)
 

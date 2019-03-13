@@ -26,6 +26,8 @@ import os
 import configparser
 from pathlib import Path
 from utils import utils
+from view.mainUI import MainUI
+from view.splash import Splash 
 
 # import controller.kinemaapp as app
 
@@ -39,9 +41,10 @@ print ("lendo o arquivo de configuração na pasta oculta do sistema.")
 
 config = configparser.ConfigParser()
 config.sections() 
-config.read(home + "\.kinema.txt")
+config.read(home + "//kinema.conf")
+dirLibrary = config['PATH']['kinema_library']
+theDir = home + dirLibrary
 
-theDir = home + config['PATH']['kinema_library']
 print(theDir)
 
 # verificar se existe o diretório da biblioteca de filmes
@@ -61,9 +64,9 @@ else:
 
 # verificar plugins instalados
 print ("Verificando plugins.")
-thePath = config['PATH']['plugins_dir']
+#thePath = config['PATH']['plugins_dir']
 
-utils.WalkPath(thePath)
+#utils.WalkPath(thePath)
 
 print("Gravando o arquivo")
 
@@ -75,3 +78,6 @@ print("esconder splash screeen")
 # iniciar a aplicação
 #app.main()
 print("iniciando a aplicação.")
+
+MainUI()
+

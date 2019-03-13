@@ -24,6 +24,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from threading import Thread
 from time import sleep
+from view.splash import Splash
 
 class MainUI(Gtk.Window):
     def __init__(self):
@@ -50,3 +51,5 @@ class MainUI(Gtk.Window):
 
         print(("Starting MainUI"))
         self.show_all()
+        Gtk.main()
+        print(("MainUI ended"))
