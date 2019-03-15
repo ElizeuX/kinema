@@ -26,9 +26,18 @@ __copyright__ = '2019, Elizeu Xavier <elizeu.xavier at gmail.comt>'
 import os
 import configparser
 import sqlite3
+import shutil
+import xml.etree.cElementTree as ET
+import urllib.request, urllib.parse, urllib.error
 
 __license__ = 'GPL v3'
 __copyright__ = '2019, Elizeu Xavier <elizeu.xavier at gmail.comt>'
+
+class structMovieResponse:  
+    titleMovie = ""
+    year = ""
+    imdbId = ""
+    
 
 def ValidateDirectoryWritable(theDir):
 
@@ -252,3 +261,119 @@ def WalkPath(thePath):
             print(fname)
         
     return(processCount)
+
+def ExtractMetaInfoDictionary(theFile):
+
+    #dicionário com metadata
+    metadata = {
+		"title" : "Roma" ,
+		"cast" : "Colin Farrell, Rachel Weisz, Jessica Barden",
+		"year" : 2018,
+		"genre" : "Comedy, Drama, Romance",
+		"director" : "Alfonso Cuarón",
+		"writer" : "Alfonso Cuarón"
+	}
+    return metadata
+
+def GetInformationsIMDB(keyword):
+
+    listaDeFilmes =[]
+    #get_keyword(keyword, results=5)
+    movieResponse = structMovieResponse()
+    movieResponse.imdbId = 'tt3464902'
+    movieResponse.titleMovie = 'The Lobster'
+    movieResponse.year = '2015'
+    listaDeFilmes.append(movieResponse)
+
+    movieResponse = object.__new__(structMovieResponse)
+    movieResponse = structMovieResponse()
+    movieResponse.imdbId = 'tt6155172'
+    movieResponse.titleMovie = 'Roma'
+    movieResponse.year = '2018'
+    listaDeFilmes.append(movieResponse)
+
+
+    # retornar lista com os ids do IMDB, títulos do filme, Ano.
+    return [listaDeFilmes]
+
+def GetFullInformationsIMDB(movieID):
+    
+    # get_movie(movieID)
+    #dicionário com metadata
+    metadata = {
+		"title" : "The Lobster" ,
+		"cast" : "Colin Farrell, Rachel Weisz, Jessica Barden",
+		"year" : 2015,
+		"genre" : "Comedy, Drama, Romance",
+		"director" : "Yorgos Lanthimos",
+		"writer" : "Yorgos Lanthimos, Efthymis Filippou"
+	}
+    return metadata
+
+def GetInformationsMovieDatabase(keyword):
+
+    listaDeFilmes =[]
+    #get_keyword(keyword, results=5)
+    movieResponse = structMovieResponse()
+    movieResponse.imdbId = 'tt3464902'
+    movieResponse.titleMovie = 'The Lobster'
+    movieResponse.year = '2015'
+    listaDeFilmes.append(movieResponse)
+
+    movieResponse = object.__new__(structMovieResponse)
+    movieResponse = structMovieResponse()
+    movieResponse.imdbId = 'tt6155172'
+    movieResponse.titleMovie = 'Roma'
+    movieResponse.year = '2018'
+    listaDeFilmes.append(movieResponse)
+
+    # # retornar lista com os ids do IMDB, títulos do filme, Ano.
+    return []
+
+def GetFullInformationsMovieDatabase(idMovie):    
+    
+    #dicionário com metadata
+    metadata = {
+		"title" : "The Lobster" ,
+		"cast" : "Colin Farrell, Rachel Weisz, Jessica Barden",
+		"year" : 2015,
+		"genre" : "Comedy, Drama, Romance",
+		"director" : "Yorgos Lanthimos",
+		"writer" : "Yorgos Lanthimos, Efthymis Filippou"
+	}
+    return metadata
+
+def moveFileToKinemaLibrary(theFile):
+
+    # obter o endereço da biblioteca kinema
+    theDirLybraryKinema = "C:/Users/ersxavier/Videos/Filmoteca do Kinema"
+    shutil.move(theFile, os.path.join(theDirLybraryKinema,'dir'))
+
+def copyFileToKinemaLibrary(theFile, theDir):          
+    shutil.copyfile(theFile, theDir)
+
+def gerar_xml(theMovie, theDir):    
+    # x = di['Julio']
+    titleMovie =  str(theMovie['_Movie__titleMovie'])
+    
+
+    lista = ET.Element("root", response = "True")
+    no_movie = ET.SubElement(lista, "movie", title = theMovie['_Movie__titleMovie'], year = theMovie['_Movie__year'], rated = theMovie['_Movie__rated'], released=theMovie['_Movie__released'], runtime=theMovie['_Movie__runtime'], genre="a, b, c", director="a, b, c", writer="a, b, c", actors="a, b, c", plot=theMovie['_Movie__plot'], language="Inglês", country=theMovie['_Movie__country'], awards="Prêmios", poster=theMovie['_Movie__poster'], metascore=theMovie['_Movie__metascore'], imdbRating=theMovie['_Movie__imdbRating'], imdbVotes=theMovie['_Movie__imdbVotes'], imdbID=theMovie['_Movie__imdbId'], type=theMovie['_Movie__typeId'])
+    arquivo = ET.ElementTree(lista)        
+    arquivo.write(theDir, encoding='utf-8', xml_declaration=True)
+
+    #_Movie__movieId = ""
+    #_Movie__titleMovie = ""
+    #_Movie__year = ""      
+    #_Movie__certificated = ""
+    #_Movie__fileAddress = ""
+    #_Movie__isComplete = ""
+    #_Movie__isPrivate = ""
+
+def downloadFile(theURL):
+    
+    #url = 'https://m.media-amazon.com/images/M/MV5BNDQ1NDE5NzQ1NF5BMl5BanBnXkFtZTgwNzA5OTM2NTE@._V1_SX300.jpg'
+    f = urllib.request.urlopen(url)
+
+    data = f.read()
+    return data
