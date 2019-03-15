@@ -22,27 +22,27 @@
 #
 
 class Movie:
-
+    
 
     def __init__(self):
-        self.__movieId = None
-        self.__titleMovie = None
-        self.__year = None
-        self.__rated = None
-        self.__released	= None
-        self.__runtime = None
-        self.__plot = None
-        self.__country = None	    
-        self.__poster = None
-        self.__metascore = None
-        self.__imdbRating = None
-        self.__imdbVotes = None
-        self.__imdbId = None
-        self.__typeId = None
-        self.__certificated = None
-        self.__fileAddress = None
-        self.__isComplete = None
-        self.__isPrivate = None
+        self.__movieId = ""
+        self.__titleMovie = ""
+        self.__year = ""
+        self.__rated = ""
+        self.__released	= ""
+        self.__runtime = ""
+        self.__plot = ""
+        self.__country = ""	    
+        self.__poster = ""
+        self.__metascore = ""
+        self.__imdbRating = ""
+        self.__imdbVotes = ""
+        self.__imdbId = ""
+        self.__typeId = ""
+        self.__certificated = ""
+        self.__fileAddress = ""
+        self.__isComplete = ""
+        self.__isPrivate = ""
 
     def getMovieId(self):
         return self.__movieId
@@ -150,4 +150,5 @@ class Movie:
         return self.__isPrivate
 
     def setIsPrivate(self, isPrivate):
-        self.__isPrivate = isPrivate
+        self.__isPrivate = isPrivate   
+    
