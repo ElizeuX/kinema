@@ -40,7 +40,7 @@ def ValidateDirectoryWritable(theDir):
     if os.access(theDir, os.W_OK):
         return theDir
     else:
-        raise RuntimeError('Directory is not writablee') from error
+        raise RuntimeError('Directory is not writablee') from EnvironmentError
 
 def ValidateDirectory(theDir):
 

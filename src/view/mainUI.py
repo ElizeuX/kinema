@@ -21,10 +21,53 @@ __copyright__ = '2019, Elizeu Xavier <elizeu.xavier at gmail.comt>'
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import GLib, Gio, Gtk
 from threading import Thread
 from time import sleep
 from view.splash import Splash
+
+MENU_XML="""
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="app-menu">
+    <section>
+      <attribute name="label" translatable="yes">Adicionar filmes</attribute>
+      <item>
+        <attribute name="action">Adicionar filmes</attribute>
+        <attribute name="target">String 1</attribute>
+        <attribute name="label" translatable="yes">String 1</attribute>
+      </item>
+      <item>
+        <attribute name="action">win.change_label</attribute>
+        <attribute name="target">String 2</attribute>
+        <attribute name="label" translatable="yes">String 2</attribute>
+      </item>
+      <item>
+        <attribute name="action">win.change_label</attribute>
+        <attribute name="target">String 3</attribute>
+        <attribute name="label" translatable="yes">String 3</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">win.maximize</attribute>
+        <attribute name="label" translatable="yes">Maximize</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.about</attribute>
+        <attribute name="label" translatable="yes">_About</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="label" translatable="yes">_Quit</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+    </item>
+    </section>
+  </menu>
+</interface>
+"""
 
 class MainUI(Gtk.Window):
     def __init__(self):
@@ -36,6 +79,9 @@ class MainUI(Gtk.Window):
         self.lbl.set_label("Main window started")
         self.add(self.lbl)
         self.connect('destroy', Gtk.main_quit)
+
+        builder = Gtk.Builder.new_from_string(MENU_XML, -1)
+        self.set_app_menu(builder.get_object("app-menu"))
 
         # Initiate and show the splash screen
         print(("Starting splash"))
