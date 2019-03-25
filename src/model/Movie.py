@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 #
 # Kinema - a GTK+/GNOME based Movies Manager.
 #
@@ -32,7 +33,9 @@ class Movie:
         self.__released	= ""
         self.__runtime = ""
         self.__plot = ""
-        self.__country = ""	    
+        self.__language = []
+        self.__country = ""
+        self.__awards = []
         self.__poster = ""
         self.__metascore = ""
         self.__imdbRating = ""
@@ -43,12 +46,15 @@ class Movie:
         self.__fileAddress = ""
         self.__isComplete = ""
         self.__isPrivate = ""
+        self.__director  = []
+        self.__writer = []
+        self.__cast = []
 
     def getMovieId(self):
         return self.__movieId
 
     def setMovieId(self, movieId):
-        self.__movie_id = movieId 
+        self.__movieId = movieId 
         
     def getTitleMovie(self):
         return self.__titleMovie
@@ -86,11 +92,23 @@ class Movie:
     def setPlot(self, plot):
         self.__plot = plot
 
+    def getLanguage(self):
+        return self.__language
+
+    def setLanguage(self, language):
+        self.__language = language
+        
     def getCountry(self):
         return self.__country
 
     def setCountry(self, country):
         self.__country = country
+    
+    def getAwards(self):
+        return self.__awards
+
+    def setAwards(self, awards):
+        self.__awards = awards
 
     def getPoster(self):
         return self.__poster
@@ -150,5 +168,29 @@ class Movie:
         return self.__isPrivate
 
     def setIsPrivate(self, isPrivate):
-        self.__isPrivate = isPrivate   
+        self.__isPrivate = isPrivate
     
+    def getDirector(self):
+        return self.__director
+    
+    def setDirector(self, director):
+        self.__director = director
+
+    def getWriter(self):
+        return self.__writer
+    
+    def setWriter(self, writer):
+        self.__writer = writer
+
+    def getCast(self):
+        return self.__cast
+    
+    def setCast(self, cast):
+        self.__cast = listCast
+
+
+    def __str__(self):        
+        ps = ''
+        for e in self.__dict__.keys(): 
+            ps += '%s: %s\n' % (e, str(self.__dict__[e]))
+        return ps
