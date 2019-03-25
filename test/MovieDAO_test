@@ -1,0 +1,54 @@
+from unittest import TestCase
+from src.model.DAO.MovieDAO import MovieDAO
+from src.model.Movie import Movie
+
+
+class TestMovieDAO(TestCase):
+    
+    # Serve para incializar variavei que usaremos
+    # globalmente nos testes
+    def setUp(self):
+        TestCase.setUp(self)
+        self.mov = MovieDAO()
+    
+    def test_getMovie(self):
+        idMovie = 18
+        titleMovieExpected = "ROMA"
+        yearExpected = 2018
+        ratedExpected = "R"
+        movie = Movie()
+        movie = self.mov.getMovie(idMovie)
+        self.assertEqual(movie.getTitleMovie(), titleMovieExpected)
+        self.assertEqual(movie.getYear(), yearExpected)
+        self.assertEqual(movie.getRated(), ratedExpected)
+    
+    def test_addMovie(self):
+        movie = Movie()       
+        movie.setTitleMovie("ROMA 3")
+        movie.setYear("2018")
+        movie.setRated("R")
+        movie.setReleased("20181121")
+        movie.setRuntime("135 ")
+        movie.setPlot("A year in the life of a middle-class familys maid in Mexico City in the early 1970s.")
+        movie.setMetascore("96")
+        movie.setImdbRating("7.9")
+        movie.setImdbVotes("89,226")
+        movie.setImdbId("tt6155172")
+        movie.setPoster("https://m.media-amazon.com/images/M/MV5BNDQ1NDE5NzQ1NF5BMl5BanBnXkFtZTgwNzA5OTM2NTE@._V1_SX300.jpg")
+
+        self.assertTrue(self.mov.addMovie(movie))
+    
+    def test_updateMovie(self):
+        movie = Movie()
+        movie.setMovieId(4)
+        movie.setYear("0000")
+        movie.setTitleMovie("XXXXXXXXXXXXX")
+        self.assertTrue(self.mov.updateMovie(movie))
+    
+    def test_deleteMovie(self):
+        movie = Movie()
+        movie.setMovieId(6)
+        self.assertTrue(self.mov.deleteMovie(movie))
+    
+    def test_listAllMovie(self):
+        self.assertTrue(self.mov.listAllMovie() != None)
