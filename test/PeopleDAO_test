@@ -1,0 +1,44 @@
+from unittest import TestCase
+from src.model.DAO.PeopleDAO import PeopleDAO
+from src.model.People import People
+
+# O nome da classe deve iniciar com a palavra Test
+class TestPeopleDAO(TestCase):
+
+    # Serve para incializar variavei que usaremos
+    # globalmente nos testes
+    def setUp(self):
+        TestCase.setUp(self)
+        self.fig = PeopleDAO()
+    
+    # Retorna uma NotImplementedError
+    # O nome do metodo deve comecar com test
+    def test_create(self):
+        people = People()
+        people.setName('Ator 3')
+        people.setArtisticname('Ator 3')
+        people.setBorn('19480611')
+        people.setCitizenship('Americano')
+        people.setBio("Ator 2 was born May 31, 1930 in San Francisco, the son of Clinton Eastwood Sr.")        
+        self.assertTrue(self.fig.create(people)) 
+
+    def test_read(self):
+        people = People()
+        self.assertRaises(NotImplementedError, self.fig.read, people)
+    
+    def test_update(self):
+        people = People()
+        people.setId(57)
+        people.setName("XXXXXXXX")
+        people.setCitizenship("Inglês")
+        self.assertTrue(self.fig.update(people))
+
+    def test_delete(self):
+        people = People()
+        people.setId(58)        
+        self.assertTrue(self.fig.delete(people))
+
+    def test_addPeople(self):
+        people = People()
+        self.assertRaises(NotImplementedError, self.fig.addPeople, people)
+    
