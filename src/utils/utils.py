@@ -377,3 +377,35 @@ def downloadFile(theURL):
 
     data = f.read()
     return data
+
+def ReadMarkDown(theFile):
+    #f = open(theFile, 'r')
+    #htmlmarkdown=markdown.markdown( f.read() )
+    pass
+
+def ReadJson(theFile):
+    import json
+    data = None
+
+    try:
+        with open(theFile) as f:
+            data = json.load(f)
+    except Exception as e:
+        raise("Não foi possível ler arquivo JSON: %s", theFile)
+
+    finally:
+        return data
+
+def WriteJson(theDict, theFile):
+    import json
+
+    try:
+        with open(theFile, 'w') as json_file:
+            json.dump(theDict,json_file, indent=4, sort_keys=True)
+        return True
+
+    except:
+        raise("Não foi possível escrever arquivo JSON: %s", theFile)
+        return False        
+
+
