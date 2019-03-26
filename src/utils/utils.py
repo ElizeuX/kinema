@@ -408,4 +408,24 @@ def WriteJson(theDict, theFile):
         raise("Não foi possível escrever arquivo JSON: %s", theFile)
         return False        
 
+def WriteKinemaJSON():        
+    kinema_dict = {
+                        "DB": {
+                                "database_name": "kinema.db",
+                                "cipher": False
+                                },
+        
+                        "PATH": {
+                                    "kinema_library" : "C:\\Users\\ersxavier\\Videos\\Filmoteca do Kinema",
+                                    "plugins_dir" : "C:\\Desenvolvimento\\kinema\\src\\plugin"            
+                                }
+                }
+
+    try:                  
+        theHome = Path.home()
+        theKinemaJson = os.path.join(theHome, ".kinema.json")
+        WriteJson(kinema_dict, theKinemaJson)    
+    except Exception as e:
+        print(e)
+        raise("Erro ao gravar o arquivo '.kinema.json' ")
 
