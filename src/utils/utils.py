@@ -29,6 +29,7 @@ import sqlite3
 import shutil
 import xml.etree.cElementTree as ET
 import urllib.request, urllib.parse, urllib.error
+import pathlib from pathlib
 
 __license__ = 'GPL v3'
 __copyright__ = '2019, Elizeu Xavier <elizeu.xavier at gmail.comt>'
@@ -69,8 +70,9 @@ def CreateDirectory(theDir):
         if not os.path.isdir(theDir):
             os.makedirs(theDir)
         return True
-    except expression as identifier:
-        raise RuntimeError('Erro') from error
+    except Expression as identifier:
+        #raise RuntimeError('Erro') from error
+        pass
         
 def GetParam(section, key):
     config = configparser.ConfigParser()
@@ -373,7 +375,7 @@ def gerar_xml(theMovie, theDir):
 def downloadFile(theURL):
     
     #url = 'https://m.media-amazon.com/images/M/MV5BNDQ1NDE5NzQ1NF5BMl5BanBnXkFtZTgwNzA5OTM2NTE@._V1_SX300.jpg'
-    f = urllib.request.urlopen(url)
+    f = urllib.request.urlopen(theURL)
 
     data = f.read()
     return data
@@ -391,7 +393,7 @@ def ReadJson(theFile):
         with open(theFile) as f:
             data = json.load(f)
     except Exception as e:
-        raise("Não foi possível ler arquivo JSON: %s", theFile)
+        print("Não foi possível ler arquivo JSON: %s : %o", theFile, e)
 
     finally:
         return data
