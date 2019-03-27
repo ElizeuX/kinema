@@ -20,30 +20,19 @@
 #along with Kinema.  If not, see <https://www.gnu.org/licenses/>
 #
 
+from utils import utils
+
+utils.check_version_info()
+
 import os
 import sys
 import configparser
 from pathlib import Path
-from utils import utils
+from model.Options import Options
+
 from view.mainUI import MainUI
 from view.main2UI import Application
 from view.splash import Splash 
-
-from time import sleep
-
-
-def check_version_info():
-    vi = sys.version_info
-    if vi[0] == 3 and vi[1:3] >= (0, 1):
-        return
-    
-    raise SystemExit(
-        'kinema requires python >= 3.0.1: ' + '.'.join(map(str, vi[:3])))
-
-
-check_version_info()
-
-
 
 splash = Splash()
 splash.start()
@@ -51,59 +40,36 @@ splash.start()
 # import controller.kinemaapp as app
 
 home = str(Path.home()) 
+options = Options.instance()
 
-# mostrar a splash screen
-print ("Mostrar tela splash screeen.")
+data = utils.ReadJson(os.path.join(home, ".kinema.json"))
 
-# ler o arquivo de configuração na pasta oculta
-print ("lendo o arquivo de configuração na pasta oculta do sistema.")
-
-config = configparser.ConfigParser()
-config.sections() 
-config.read(home + "//kinema.conf")
-dirLibrary = config['PATH']['kinema_library']
-theDir = home + dirLibrary
-
-print(theDir)
-
-# verificar se existe o diretório da biblioteca de filmes
-# caso não exista , criar diretório.
-# verificar se existe banco de dados e checar integridade
-# se não existir, criar, se o banco de dados estiver corrompido 
-# perguntar se quer reparar.
-print ("Verificando se existe diretório")
-if utils.ValidateDirectory(theDir) == None:
-    utils.CreateDirectory(theDir)
-
-if os.path.exists(theDir + '\\kinema.db'):
-    print("verificar banco de dados.")
-    print("Conferir se os diretórios batem com os diretores e se os filmes batem com os arquivos")
-else:
-    utils.CreateNewDataBaseSQLite(theDir, '\\kinema.db')
-
-# verificar plugins instaladosview
-print ("Verificando plugins.")
-#thePath = config['PATH']['plugins_dir']view
-
-#utils.WalkPath(thePath)view
-
-print("Gravando o arquivo")
-
-# esconder a splash screenview
-print("esconder splash screeen")
-
-# iniciar a aplicaçãoview
-#app.main()view
-print("iniciando a aplicação.")
-
-#MainUI()
+# carregar os dados do kinema.json para a classe options
+options = Options.instance()
+options.localOfLibrary = data['PATH']['kinema_library']
+options.pluginsDir = data['PATH']['plugins_dir']
+options.databaseName = data['DB']['database_name']
 
 
-sleep(2)
+try:
+    theDirLibrary = options.localOfLibrary
+    theDatabase = os.path.join(theDir, options.databaseName)
+    thePathPlugins = options.pluginsDir        
+    
+    if utils.ValidateDirectory(theDirLibrary) == None:
+        utils.CreateDirectory(theDirLibrary)
+
+    if os.path.exists(theDatabase):
+        print("verificar banco de dados.")
+        print("Conferir se os diretórios batem com os diretores e se os filmes batem com os arquivos")    
+        utils.executeDataBaseVacuum(theDatabase)
+    else:
+        utils.CreateNewDataBaseSQLite(theDatabase)    
+
+    utils.WalkPath(thePathPlugins)
 
 # Destroy splash
 splash.destroy()
 
 app = Application()
 app.run(sys.argv)
-
