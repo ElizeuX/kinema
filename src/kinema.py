@@ -67,6 +67,8 @@ try:
         utils.CreateNewDataBaseSQLite(theDatabase)    
 
     utils.WalkPath(thePathPlugins)
+except Exception as e:
+    pass
 
 # Destroy splash
 splash.destroy()
