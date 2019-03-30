@@ -1,30 +1,13 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-#
-# Kinema - a GTK+/GNOME based Movies Manager.
-#
-# Copyright (C) 2019  Elizeu Ribeiro Sanches Xavier
-#
-#This file is part of Kinema.
-#
-#Kinema is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
-#
-#Kinema is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
-#
-#You should have received a copy of the GNU General Public License
-#along with Kinema.  If not, see <https://www.gnu.org/licenses/>
-#
-
 import os
 from utils import utils 
 from model.Movie import Movie
+from model.People import People
+
 from model.DAO.MovieDAO import MovieDAO
+
+from model.DAO.PeopleDAO import PeopleDAO
+from model.Options import Options
+
 
 #
 # Controladora da tela de importação de filmes
@@ -38,50 +21,81 @@ class ImportMovie:
         self.__year =  metainfo['year']   
         self.__director = metainfo['director']
         self.__writer = metainfo['writer']
+        self.__genre = metainfo['genre']
+        self.__cast = metainfo['cast']
     
     def getMetadata(self, keyword):
         listIMDB = utils.GetInformationsIMDB(keyword)
         listMovieDatabase= utils.GetInformationsMovieDatabase(keyword)
         listaGeral = listIMDB + listMovieDatabase
+        return utils.GetFullInformationsIMDB(1)
 
 
         # listar fonte|title|director|ano
 
     def importMovieToLibrary(self, pmovie):        
         
-        movie = pmovie
+        cast_list = self.__cast.split(',')
+        director_list = self.__director.split(',')
+        writer_list = self.__writer.split(',')
 
-        theDirLybraryKinema = "C:\\Users\\ersxavier\\Videos\\Filmoteca do Kinema"
+        # incluir Actors
+        self.IncludePeople(cast_list)
+
+        # incluir director
+        self.IncludePeople(director_list)
+
+        # incluir writer
+        self.IncludePeople(writer_list)
+
+        options = Options.instance()
+        theDirLybraryKinema = options.localOfLibrary 
+
+        # SENÃO EXISTIR, CRIAR DIRETORIO COM O NOME DO DIRETOR
         theDir = os.path.join(theDirLybraryKinema, self.__director)
-
         if not utils.ValidateDirectoryWritable(theDir):
             utils.CreateDirectory(theDir)
         
+        # SENÃO EXISTIR, CRIAR DIRETORIO COM O NOME DO FILME
         theDir = os.path.join(theDir, self.__title) 
-
         if not utils.ValidateDirectoryWritable(theDir):
             utils.CreateDirectory(theDir)
-        # IMPORTAR FILME PARA BIBLIOTECA
-        # COPIAR PARA PASTA
+
+        # CRIAR UM ARQUIVO JSON COM OS METADADOS DO FILME
+        utils.createTheMovieJSONInfo(theDir, pmovie)
+        
+        # COPIAR FILME PARA PASTA DIRETOR/FILME
         # utils.copyFileToKinemaLibrary(self.__theFile, theDir)       
 
-        # ATUALIZAR BANCO DE DADOS
+        # ATUALIZAR BANCO DE DADOS DE FILME       
         movieDAO = MovieDAO()        
         movieDAO.addMovie(pmovie)
 
         # BAIXAR E COPIAR COVER.JPG
         data = utils.downloadFile(pmovie.getPoster())
-        
-        # como pegar a extensão do arquivo ou tipo
         #with open(os.path.join(theDir,"COVER", "wb") as code:
-        #    code.write(data)
-
-
-
-        # GERAR XML
-        utils.gerar_xml(pmovie.__dict__, os.path.join(theDir, movie.getTitleMovie() + ".xml"))
+        #    code.write(data)    
 
     def view(self):
         print(self.__title)
     
     
+    def IncludePeople(self, listOfPeople):
+        # incluir Actors
+        peopleDAO = PeopleDAO()                
+        people = People()
+        peopleList = []
+        
+        for actor in listOfPeople:
+            people.setArtisticname(actor.strip(" "))
+            peopleList.append(people)
+            people = People()
+
+        # cadastre se o artista não estiver cadastrado
+        for item in peopleList:
+            if peopleDAO.read(item).getId() != '':
+               # associo 
+               pass
+            else:
+                peopleDAO.create(item)
+        #--------------------------------------
